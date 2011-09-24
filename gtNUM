@@ -1,0 +1,5 @@
+#!/bin/sh
+num=54
+if [ $num -gt 23 ] ; then
+echo "greater"
+fi

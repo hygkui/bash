@@ -1,0 +1,55 @@
+#!/bin/sh
+
+if [ $# = "" ] ; then
+	echo $#
+	echo "usage ./mk-xul-frame arg1"
+	exit 0
+fi
+
+name=$1
+
+echo "creat $name for a xulrunner programme"
+
+mkdir $name
+cd $name
+mkdir chrome
+mkdir defaults
+touch application.ini
+cd chrome
+touch chrome.manifest
+mkdir $name
+cd $name
+touch $name.js
+touch $name.xul
+cd ../../
+cd defaults
+mkdir preferences
+cd preferences
+touch pref.js
+
+#######
+#edit the special files
+######
+chrome_p="toolkit.defaultChromeURI"
+chrome_t="##chrome://$name/content/$name.xul"
+echo "pref($chrome_p,$chrome_t )## should add 双引号">prefs.js
+
+cd ../../
+
+ini="[App]
+Vendor=Duo
+Name=hello
+Version=0.1
+BuildID=20060414
+
+[Gecko]
+MinVersion=1.8
+MaxVersion=1.9a1"
+echo $ini>application.ini
+
+mainfest="content $name file:$name/"
+echo $mainfest>chrome/chrome.manifest
+
+
+
+

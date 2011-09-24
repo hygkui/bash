@@ -1,0 +1,18 @@
+#!/bin/sh
+
+singletab="\t"
+function recdir()
+{
+    tab=$tab$singletab
+    for file in "$@" ; do
+        echo -e $tab$file
+        if [ -d "$file" ] ;then
+            recdir $(command ls $file)
+        elif [ -f "$file" ] ;then
+            echo -e "$tab$file is a file "
+        fi
+    done
+    unset tab
+}
+
+recdir "$@"

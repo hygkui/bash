@@ -1,0 +1,10 @@
+#!/bin/bash
+
+square(){
+    let "res=$1 * $1"
+    echo $res
+}
+square 1
+square 2
+square 3
+

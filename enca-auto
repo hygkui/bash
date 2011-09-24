@@ -1,0 +1,11 @@
+# better than iconv
+# usage: copy it the the path of the files that need encoding convertion
+# just run it : ./enca-auto
+#!/bin/bash
+for i in `ls`
+do
+	if test -f "$i"
+	then 
+		enca -L zh_CN -x utf8 "$i" 
+	fi
+done

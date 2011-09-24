@@ -1,0 +1,7 @@
+#!/bin/sh
+echo "$# args"
+args=$#
+echo $args
+if [ $# -gt 2 ] ;then
+echo "usage:  ./new arg1 "
+fi

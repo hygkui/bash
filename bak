@@ -1,0 +1,10 @@
+#!/bin/sh
+if cp "$1" "#$1"
+then 
+	vi "$1"
+else
+	echo "fail to create backup copy "
+fi
+
+# 2006年 12月 29日 星期五 08:42:48 CST
+

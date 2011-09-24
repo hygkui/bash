@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if test -f "$1"
+then 
+	vi "$1"
+else
+	echo "can't find the file $1"
+fi
+
+#2006年 12月 29日 星期五 08:47:40 CST

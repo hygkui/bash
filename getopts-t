@@ -1,0 +1,22 @@
+#!/bin/bash
+while getopts ":u:a:s:v" options; do
+  case $options in
+#    u ) uname=$OPTARG;;
+    u ) echo "hello";;
+    a ) attrs=$OPTARG;;
+    s ) searchattr=$OPTARG;;
+    v ) att=ALL;;
+    h ) echo $usage;;
+    \? ) echo $usage
+         exit 1;;
+    * ) echo $usage
+          exit 1;;
+  esac
+done
+
+if [ $uname ]; then
+  if [ $attrs ]; then
+    echo $uname $attrs
+    exit
+  fi
+fi

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+recdir()
+{
+    for path in "$@" ;do 
+        if [ -d "$path" ];then
+            echo "$path"" is a dir" 
+            
+        fi
+    done
+}
+set_tab()
+{
+    echo "\t"
+}
+
+recdir `ls .` 
+
+
+        
+
