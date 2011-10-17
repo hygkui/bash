@@ -39,7 +39,9 @@ function retrive_dirs()
 				cd "$file"
 				retrive_dirs $(ls)
 				popd 1>/dev/null
-			else file_job $file
+#  need to remove . or else the dir_job cannot work so good ,
+#  the file_job will 'hide' the result of dir_job.
+#			else file_job $file  
 			fi
 		done
 	else file_job $*
