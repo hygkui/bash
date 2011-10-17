@@ -1,0 +1,68 @@
+#!/bin/bash
+function file_job()
+{
+	wc -l $1
+}
+function dir_job()
+{
+	#Add you code here for directory process
+	#demo code
+#	wc -l $1/*.h $1/*.cpp $1/*.inl $1/*.mmp $1/*.rss $1/*.inf $1/*.hrh $1/*.rh
+	wc -l $1/*.py 2>/dev/null
+}
+function usage()
+{
+	echo "Usage: $0 (-d|-f) filename"
+}
+function retrive_files()
+{
+		for file in $*
+		do
+			if [ -d $file ]; then
+				pushd "$PWD" 1>/dev/null
+				cd "$file"
+				retrive_files $(ls)
+				popd 1>/dev/null
+			else
+				file_job $file
+			fi
+		done
+}
+function retrive_dirs()
+{
+	if [ -d $* ];then
+		for file in $*
+		do
+			if [ -d $file ]; then
+				dir_job $file
+				pushd "$PWD" 1>/dev/null
+				cd "$file"
+				retrive_dirs $(ls)
+				popd 1>/dev/null
+			else file_job $file
+			fi
+		done
+	else file_job $*
+	fi
+}
+work_dir=$PWD
+
+if [ $# -gt 0 ] ; then
+	while getopts "df" opt
+	do
+		case $opt in
+		d)
+			shift $(($OPTIND-1))
+			retrive_dirs $*
+			;;
+		f)
+			shift $(($OPTIND-1))
+			retrive_files $*
+			;;
+		?)
+			usage
+			;;
+		esac
+	done
+else usage
+fi
