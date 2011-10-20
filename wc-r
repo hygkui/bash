@@ -1,4 +1,5 @@
 #!/bin/bash
+# 来点说明不啊？这脚本是干啥用的啊，怎么用啊，兄弟！
 function file_job()
 {
 	wc -l $1
