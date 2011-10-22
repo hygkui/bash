@@ -16,13 +16,14 @@ function do_it()
 	cp $home_dir/svn-repos/bash/hooks/post-commit $svn_dir/hooks/
 	cp $home_dir/svn-repos/bash/hooks/post-revprop-change $svn_dir/hooks/
 	svn co file://$svn_dir $svn_co_dir
-	touch $svn_co_dir/start.ok
-	echo "start-ok now!" > $svn_co_dir/start.ok
-	date >> $svn_co_dir/start.ok
+#	touch $svn_co_dir/start.ok
+#	echo "start-ok now!" > $svn_co_dir/start.ok
+#	date >> $svn_co_dir/start.ok
 	cd $svn_co_dir
-	svn add start.ok
-	svn ci 
-	echo -e "now you shoud do:\r\n1)add the repos in the trac \r\n2)run the trac-admin repos? resync $1"
+	echo "enter the project directory:$svn_co_dir"
+	echo -e "you shoud do:\r\n1)add the repos in the trac \r\n2)run the trac-admin repos? resync $1"
+	echo "now start a new django project. "
+	django-admin.py startproject $1
 }
 
 # for test
