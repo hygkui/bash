@@ -24,6 +24,7 @@ function do_it()
 	echo -e "you shoud do:\r\n1)add the repos in the trac \r\n2)run the trac-admin repos? resync $1"
 	echo "now start a new django project. "
 	django-admin.py startproject $1
+	svn ci
 }
 
 # for test

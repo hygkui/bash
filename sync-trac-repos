@@ -1,0 +1,4 @@
+#!/bin/bash
+ENV="/var/www/trac" 
+svn_repos=$1
+trac-admin $ENV repository resync $svn_repos
