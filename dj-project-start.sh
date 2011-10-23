@@ -4,7 +4,7 @@
 #by ghh.
 function usage()
 {
-	echo "Usage:$0 porject-name(注意使用方法：$0 项目名称)"
+	echo -e "Usage:\r\n1)$0 porject-name(启动django项目)\r\n2)$0 -d project_name(清理新创建的项目)"
 }
 
 function do_it() 
