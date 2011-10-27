@@ -12,6 +12,7 @@ function do_it()
 	home_dir="/home/ghh"
 	svn_dir=$home_dir/svn-repos/$1
 	svn_co_dir=$home_dir/$1
+	trac_dir="/var/www/trac"
 	svnadmin create $svn_dir
 	cp $home_dir/svn-repos/bash/hooks/post-commit $svn_dir/hooks/
 	cp $home_dir/svn-repos/bash/hooks/post-revprop-change $svn_dir/hooks/
@@ -21,12 +22,18 @@ function do_it()
 #	date >> $svn_co_dir/start.ok
 	cd $svn_co_dir
 	echo "enter the project directory:$svn_co_dir"
-	echo -e "you shoud do:\r\n1)add the repos in the trac \r\n2)run the trac-admin repos? resync $1"
+	echo -e "you shoud do:\r\n1)add the repos in the trac"
+	echo -e "2)trac-admin $trac_dir repository resync $1"
 	echo "now start a new django project. "
 	django-admin.py startproject $1
+	svn add $1
 	cd $1
 	chmod +x manage.py 
-	python manage.py runserver
+	python manage.py validate 
+	svn ci -m "start the project $1 now."
+	cd $home_dir
+	./trac.run
+	firefox "http://127.0.0.1:8001/trac/"
 }
 
 # for test
