@@ -2,7 +2,7 @@
 # date : 2011.11.01
 # goal : this system will move to other machine
 # usage: just run it.
-
+HOME_DIR=/home/ghh
 DUMP_DIR=/home/ghh/dump
 
 SVN_REPOS=/home/ghh/svn-repos 
@@ -14,8 +14,9 @@ TRAC_DUMP_ENV=$DUMP_DIR/trac-dump
 PSQL_DUMP_DIR=$DUMP_DIR/psql_dump
 DB_LIST=("db_test" "db_asac" "db_blog")
 
-FILES_AND_DIRS=$DUMP_DIR/files_dirs
-
+FILES_AND_DIRS_DUMP=$DUMP_DIR/files_dirs
+#FILE_DIRECTORY_LIST=("/var/www" "$HOME_DIR/workspace" "$HOME_DIR/useful-tip" "$HOME_DIR/software" "$HOME_DIR/temp" "$HOME_DIR/pictures" "$HOME_DIR/download" "$HOME_DIR/documents" "$HOME_DIR/music")
+FILE_DIRECTORY_LIST=( "$HOME_DIR/music")
 # for svn
 function svn_dump(){
 	cd $SVN_REPOS
@@ -44,16 +45,32 @@ function sql_dump(){
 	done
 }
 # for the configure files.
-
+function config_dump(){
+	cp /etc/apt/source.list $DUMP_DIR/source.list
+	cp ~/.bash_aliases $DUMP_DIR/bash_aliases
+	cp ~/.vimrc $DUMP_DIR/vimrc
+}
 
 # files & directories need to copy
+function files_dirs_dump(){
+	for dir in ${FILE_DIRECTORY_LIST[*]}
+	do
+		echo $dir
+	#	ls $dir/*
+		echo ${dir##*/}
+		tar -cvf $FILES_AND_DIRS_DUMP/${dir##*/}.tar.gz $dir
+	done
+
+}
 rm -rf $DUMP_DIR
 mkdir $DUMP_DIR
 mkdir $SVN_DUMP_FILE
 mkdir $PSQL_DUMP_DIR
-#ok now . 
-svn_dump
-trac_dump
-sql_dump
+mkdir $FILES_AND_DIRS_DUMP
 
-echo -e "dump work is done!"
+#ok now . 
+#svn_dump
+#trac_dump
+#sql_dump
+files_dirs_dump
+
