@@ -1,0 +1,59 @@
+#!/bin/bash
+# date : 2011.11.01
+# goal : this system will move to other machine
+# usage: just run it.
+
+DUMP_DIR=/home/ghh/dump
+
+SVN_REPOS=/home/ghh/svn-repos 
+SVN_DUMP_FILE=$DUMP_DIR/svn-dump
+
+TRAC_ENV=/var/www/trac
+TRAC_DUMP_ENV=$DUMP_DIR/trac-dump
+
+PSQL_DUMP_DIR=$DUMP_DIR/psql_dump
+DB_LIST=("db_test" "db_asac" "db_blog")
+
+FILES_AND_DIRS=$DUMP_DIR/files_dirs
+
+# for svn
+function svn_dump(){
+	cd $SVN_REPOS
+	for file in `ls` 
+	do 
+		if [ -d $file ];then
+			echo entring directory: $file
+			echo dump to the file : $SVN_DUMP_FILE/$file.`date +%F`.dump
+			svnadmin dump $file > $SVN_DUMP_FILE/$file.`date +%F`.dump
+		fi
+	done
+}
+# for trac
+function trac_dump(){
+	echo "trac-admin $TRAC_ENV hotcopy $TRAC_DUMP_ENV"
+	trac-admin $TRAC_ENV hotcopy $TRAC_DUMP_ENV
+
+}
+# for postgresql
+# see more : http://www.pgsqldb.org/pgsqldoc-cvs/backup.html
+function sql_dump(){
+	echo "dump all sql to $PSQL_DUMP_DIR. use psql -f 'infile' postgres to recovery."
+	for dbname in ${DB_LIST[*]}
+	do 
+	pg_dump $dbname > $PSQL_DUMP_DIR/$dbname.`date +%F`.dump
+	done
+}
+# for the configure files.
+
+
+# files & directories need to copy
+rm -rf $DUMP_DIR
+mkdir $DUMP_DIR
+mkdir $SVN_DUMP_FILE
+mkdir $PSQL_DUMP_DIR
+#ok now . 
+svn_dump
+trac_dump
+sql_dump
+
+echo -e "dump work is done!"
