@@ -14,13 +14,13 @@ TRAC_DUMP_ENV=$DUMP_DIR/trac-dump
 PSQL_DUMP_DIR=$DUMP_DIR/psql_dump
 DB_LIST=("db_test" "db_asac" "db_blog")
 
+CONFIG_FILES_DIR=$DUMP_DIR/config-files
+
 FILES_AND_DIRS_DUMP=$DUMP_DIR/files_dirs
-#FILE_DIRECTORY_LIST=("/var/www" "$HOME_DIR/workspace" "$HOME_DIR/useful-tip" "$HOME_DIR/software" "$HOME_DIR/temp" "$HOME_DIR/pictures" "$HOME_DIR/download" "$HOME_DIR/documents" "$HOME_DIR/music")
-FILE_DIRECTORY_LIST=( "$HOME_DIR/music")
+FILE_DIRECTORY_LIST=("/var/www" "$HOME_DIR/workspace" "$HOME_DIR/useful-tip" "$HOME_DIR/software" "$HOME_DIR/temp" "$HOME_DIR/pictures" "$HOME_DIR/download" "$HOME_DIR/documents" "$HOME_DIR/music")
 # for svn
 function svn_dump(){
-	cd $SVN_REPOS
-	for file in `ls` 
+	for file in `ls $SVN_REPOS`
 	do 
 		if [ -d $file ];then
 			echo entring directory: $file
@@ -46,9 +46,9 @@ function sql_dump(){
 }
 # for the configure files.
 function config_dump(){
-	cp /etc/apt/source.list $DUMP_DIR/source.list
-	cp ~/.bash_aliases $DUMP_DIR/bash_aliases
-	cp ~/.vimrc $DUMP_DIR/vimrc
+	cp /etc/apt/sources.list $CONFIG_FILES_DIR/sources.list
+	cp ~/.bash_aliases $CONFIG_FILES_DIR/bash_aliases
+	cp ~/.vimrc $CONFIG_FILES_DIR/vimrc
 }
 
 # files & directories need to copy
@@ -62,15 +62,27 @@ function files_dirs_dump(){
 	done
 
 }
+
+##############################
+#### we dump form here ######
+#############################
 rm -rf $DUMP_DIR
 mkdir $DUMP_DIR
 mkdir $SVN_DUMP_FILE
 mkdir $PSQL_DUMP_DIR
+mkdir $CONFIG_FILES_DIR
 mkdir $FILES_AND_DIRS_DUMP
 
 #ok now . 
-#svn_dump
-#trac_dump
-#sql_dump
+svn_dump
+trac_dump
+sql_dump
+config_dump
 files_dirs_dump
+cd $HOME_DIR
+tar -cvf system.dump.`date +%F`.tar.gz $DUMP_DIR
 
+
+##############################
+#######dump done !############
+##############################
