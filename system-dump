@@ -20,7 +20,8 @@ FILES_AND_DIRS_DUMP=$DUMP_DIR/files_dirs
 FILE_DIRECTORY_LIST=("/var/www" "$HOME_DIR/workspace" "$HOME_DIR/useful-tip" "$HOME_DIR/software" "$HOME_DIR/temp" "$HOME_DIR/pictures" "$HOME_DIR/download" "$HOME_DIR/documents" "$HOME_DIR/music")
 # for svn
 function svn_dump(){
-	for file in `ls $SVN_REPOS`
+	cd $SVN_REPOS
+	for file in `ls `
 	do 
 		if [ -d $file ];then
 			echo entring directory: $file
