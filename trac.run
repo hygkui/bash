@@ -1,0 +1,3 @@
+#!/bin/sh
+tracd -d -p 8001 --basic-auth="trac",/var/www/trac/.trac-users, /var/www/trac /var/www/trac
+echo  "trac is worked now."
