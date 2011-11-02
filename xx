@@ -1,5 +1,5 @@
 #!/bin/bash
 echo '/usr/bin/trac-admin /var/www/trac changeset added "$1" "$2"'>post-commit
 sudo chown www-data:www-data post-commit
-sudo chmod ug+x post-commit
+sudo chmod +x post-commit
 mv post-commit ~/svn-repos/bash/hooks/ 
