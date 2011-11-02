@@ -4,4 +4,4 @@ echo "#Description: "
 echo "#author:guo huan" 
 echo "#email:fevernova.life@gmail.com"
 echo "#         guohuan.bit@gmail.com"
-echo "#"`date`
+echo "#"`date +%F`
