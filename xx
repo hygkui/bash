@@ -1,0 +1,4 @@
+#!/bin/bash
+echo '/usr/bin/trac-admin /var/www/trac changeset added "$1" "$2"'>post-commit
+chmod ug+x post-commit
+mv post-commit ~/svn-repos/bash/hooks/ 
