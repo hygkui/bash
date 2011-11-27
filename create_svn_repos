@@ -6,11 +6,6 @@ function create_svn_repos()
 	svn_co_dir=$home_dir/$1
 	trac_env=/var/www/trac
 	svnadmin create $svn_dir
-	cd $svn_dir/hooks
-	echo '/usr/bin/trac-admin /var/www/trac changeset added "$1" "$2"'>post-commit
-	chmod ug+x post-commit
-	echo '/usr/bin/trac-admin /var/www/trac changeset modified "$1" "$2"'>pre-revprop-change
-	chmod ug+x pre-revprop-change
 	cd $home_dir
 	svn co file://$svn_dir $1
 }

@@ -1,4 +1,10 @@
 #!/bin/sh
+####
+# add hooks to the svn-repos to enable action with the trac
+# run it like this : ./$0 your-svn-repos-name
+# by ghh
+# @ 2011.11.02 
+####
 svn_repos_dir=/home/ghh/svn-repos
 svn_project_hooks_dir=$svn_repos_dir/$1/hooks
 rm -rf post-commit pre-revprop-change
@@ -9,7 +15,7 @@ echo 'trac-admin /var/www/trac changeset modified "$1" "$2"'>>pre-revprop-change
 
 sudo chown www-data:www-data post-commit pre-revprop-change
 sudo chmod a+x post-commit pre-revprop-change
-sudo rm $svn_project_hooks_dir/post-commit $svn_project_hooks_dir/pre-revprop-change
+sudo rm -rf $svn_project_hooks_dir/post-commit $svn_project_hooks_dir/pre-revprop-change
 mv post-commit $svn_project_hooks_dir
 mv pre-revprop-change $svn_project_hooks_dir
 
