@@ -1,4 +1,5 @@
 #!/bin/bash
+# learn note about ${ ##* } in bash to get the path,filename,suffix extension,prefix ...
 FULLPATH=/usr/share/X11/xorg.conf.d/50-synaptics.conf
 # remove all the prefix until "/" character
 FILENAME=${FULLPATH##*/}

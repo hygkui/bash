@@ -47,10 +47,10 @@ function del_it()
 	echo "clean all!"
 }
 
-if [ $# -gt 0 ];then
+if [ $# -gt 0 ] ; then
 	if getopts "d" opt ; then
 		del_it $2
-	elif [ 1 -eq $# ];then
+	elif [ 1 -eq $# ] ; then
 		do_it $*
 	fi
 else usage

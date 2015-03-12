@@ -1,5 +1,7 @@
 #!/bin/bash
-# 来点说明不啊？这脚本是干啥用的啊，怎么用啊，兄弟！
+# 计算制定目录下的代码总行数，本例中只统计py代码，可以在函数dir_job中指定。
+# -d : 可以指定在目录下统计指定后缀名的代码行数
+# -f : 统计所有文件的行数
 function file_job()
 {
 	wc -l $1
@@ -13,7 +15,7 @@ function dir_job()
 }
 function usage()
 {
-	echo "Usage: $0 (-d|-f) filename"
+	echo "Usage: $0 (-d | -f) filename"
 }
 function retrive_files()
 {

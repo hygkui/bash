@@ -65,8 +65,8 @@ function files_dirs_dump(){
 }
 
 ##############################
-#### we dump form here ######
-#############################
+#### dump start form here  ###
+##############################
 rm -rf $DUMP_DIR
 mkdir $DUMP_DIR
 mkdir $SVN_DUMP_FILE
@@ -85,5 +85,5 @@ tar -cvf system.dump.`date +%F`.tar.gz $DUMP_DIR
 
 
 ##############################
-#######dump done !############
+####### dump done ! ##########
 ##############################
